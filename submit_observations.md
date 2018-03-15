@@ -1,0 +1,21 @@
+Tips for submitting observations
+--------------------------------
+
+Explanation about how to submit birding by ear observations for Game of
+Thones.
+
+If a location is available on the map, but not available in the dropdown
+menu, that's probably because I'm at least 95% certain that location is
+never actually visited in the show (it's only in the book) and therefore
+we shouldn't have any bird observations there. If I've made a mistake
+here, just select "UNKNOWN" and explain yourself in the "notes". Same
+with if you're not sure where a bird was observed -- you can just select
+the "UNKNOWN" option, perhaps describe the scene in the notes (which
+characters? was it day or night?), and definitely leave the season,
+episode number, and approximate minute of the episode.
+
+Please submit an observation for an episode and location only once per
+episode! e.g., if you already observed a Northern Cardinal at Sunspear
+in S5E7, you don't need to submit it again every time you hear the bird
+singing, or if the episode bounces back and forth between Sunspear and
+other locations (though it's fine if someone else does).
