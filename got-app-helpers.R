@@ -2,7 +2,7 @@
 
 # Helper functions for the got-app
 
-
+# GOT_map_data ==============
 GOT_map_data <- function(filepath) {
   
   # Read in shapefiles
@@ -65,8 +65,8 @@ GOT_map_data <- function(filepath) {
 }
 
 
-# WOULD READ IN UPDATED GOOGLE FORM/ SHEET HERE:
-# HOPEFULLY COULD DEAL WITH REGIONS, LOCATIONS, ETC.
+
+# GOT_bird_data ==============
 GOT_bird_data <- function(map_data, sheet_key){
 
   bird.obs <- gs_key(x = sheet_key, verbose = FALSE) %>% 
@@ -85,8 +85,6 @@ GOT_bird_data <- function(map_data, sheet_key){
   for (i in 1:length(all.bird.data)){
     list.layer <- names(all.bird.data)[i]
     all.bird.data[[list.layer]] <- map_data[[list.layer]]
-    all.bird.data[[list.layer]]@data <- data.table(all.bird.data[[list.layer]]@data)
-    all.bird.data[[list.layer]]@data$id <- as.numeric(all.bird.data[[list.layer]]@data$id)
     obs.list <- bird.obs[,c('species_name', 'name')] %>% 
       split(by = 'name') %>% 
       lapply(., '[[', 'species_name') %>%
@@ -95,16 +93,15 @@ GOT_bird_data <- function(map_data, sheet_key){
       lapply(., unique)
     dt <- data.table(name = names(obs.list),
                      species.list = obs.list)
-    all.bird.data[[list.layer]]@data <- merge(x = all.bird.data[[list.layer]]@data, 
+    all.bird.data[[list.layer]] <- merge(x = all.bird.data[[list.layer]], 
                                               y = dt, by = 'name', all.x = TRUE)
-    all.bird.data[[list.layer]]@data[species.list == '', 
-                            species.list := c('No species observations for this location yet!')]
-    setkey(all.bird.data[[list.layer]]@data, id)
+    all.bird.data[[list.layer]]@data[is.na(all.bird.data[[list.layer]]@data$species.list),
+                                     'species.list'] <- 'No species observations for this location yet!'
   }
   return(all.bird.data)
 }
 
-
+# GOT_map ==============
 GOT_map <- function(map_data, bird_data){
   leaflet() %>% 
     addPolygons(data = map_data$continents, color = 'gray50', stroke = FALSE,
@@ -112,12 +109,13 @@ GOT_map <- function(map_data, bird_data){
     addPolygons(data = bird_data$westeros, 
                 color = 'gray50', stroke = FALSE,
                 fillOpacity = 0, 
-                popup = ~as.character(name), 
+                popup = ~as.character(species.list), 
                 label = ~as.character(name)) %>%
     addPolygons(data = bird_data$regions, stroke = FALSE, fillOpacity = 0, 
-                popup = ~as.character(name), 
+                popup = ~as.character(species.list), 
                 label = ~as.character(name)) %>%
     addPolygons(data = bird_data$islands, color = 'gray50', stroke = FALSE,
+                popup = ~as.character(species.list), 
                 label = ~as.character(name)) %>%
     addCircleMarkers(data = bird_data$locations, stroke = FALSE,
                      popup = ~as.character(species.list),
