@@ -128,12 +128,12 @@ GOT_map <- function(map_data, bird_data){
                      label = ~as.character(name)) %>% 
     
     # Centered on Pentos
-    setView(lng = 48, lat = 8, zoom = 3.5)
+    setView(lng = 40, lat = 4, zoom = 3.5)
   
 }
 
 # Read in data to use in map
-w <- 'shiny_app/data/shapefiles'
+w <- './data/shapefiles'
 map_data <- GOT_map_data(filepath = w)
 GOT_sheet_key <- '1B5_IP0N8AgQ8GscEWm9X7vq_GO7j7N6YQgBJ-D8wPZo'
-bird_data <- GOT_bird_data(map_data = map_data, sheet_key = GOT_sheet_key)
+
