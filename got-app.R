@@ -25,6 +25,8 @@ library(googlesheets)
 #   (VIEW: everyone; EDIT: Cathleen only)
 GOT_sheet_key <- '1B5_IP0N8AgQ8GscEWm9X7vq_GO7j7N6YQgBJ-D8wPZo'
 
+bird_data <- GOT_bird_data(map_data = map_data, sheet_key = GOT_sheet_key)
+
 # Locations to display in submission form:
 show.location.names <- sort(
   c(
@@ -201,7 +203,7 @@ server <- function(input, output, session) {
   
   # Save new observation data to google sheet:
   saveData <- function(data){
-    GOT.sheet <- gs_key(x = GOT.sheet.key) %>% 
+    GOT.sheet <- gs_key(x = GOT_sheet_key) %>% 
       gs_add_row(input = data)
   }
   
