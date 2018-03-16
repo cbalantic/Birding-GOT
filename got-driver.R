@@ -4,11 +4,7 @@
 
 library(googlesheets)
 library(data.table)
-dt <- data.table(gs_ls())
-
-# Grab sheet key to avoid needing OAuth access:
-GOT.sheet.key <- dt[sheet_title == 'GOT_birding_by_ear', sheet_key]
-gs_key(x = GOT.sheet.key)
+library(rgdal)
 
 # READ IN MAP DATA:
 w <- './Westeros_Essos_shp/GoTRelease'
