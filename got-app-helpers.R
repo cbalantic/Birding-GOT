@@ -25,12 +25,11 @@ GOT_map_data <- function(filepath) {
   locations@data <- rbind(locations@data, redkeep)
   locations@coords <- rbind(locations@coords, c(19.34, 4)) # eyeball coordinates
   
-  
   # Keep only important locations from the show
   show.location.names <- c('Astapor', 'Baelish Keep', 'Braavos', 'Casterly Rock',
                            'Castle Black', "Craster's Keep", 'Deepwood Motte', 
                            'Dragonstone', 'Eastwatch-by-the-Sea', 
-                           'Fist of the First Men',  'Harrenhal', 'Highgarden', 
+                           'Fist of the First Men',  'Harrenhal', 'Highgarden', 'Horn Hill',
                            'Karhold', "King's Landing", 'Lannisport', 'Last Hearth', 
                            'Meereen', 'Moat Cailin', "Mole's Town", 'Nightfort', 
                            'Oldtown', 'Pentos','Qarth', 'Queenscrown', 'Riverrun', 
@@ -40,19 +39,6 @@ GOT_map_data <- function(filepath) {
                            'Valyria','Volantis','White Harbor', 'Winterfell', 'Yunkai')
   show.locations <- locations[locations@data$name %in% show.location.names, ]
   show.locations@data$name <- droplevels(show.locations@data$name)
-  
-  
-  # # Keep only important islands from the show
-  # show.islands.names <- c('Bear Island', 'Isle of Cedars','Dragonstone', 'Naath', 'Pyke', 'Tarth')
-  # show.islands <- islands[islands@data$name %in% show.islands.names, ]
-  # show.islands@data$name <- droplevels(show.islands@data$name)
-  
-  # # Keep only important regions from the show
-  # show.regions.names <- c('Iron Islands', 'Kingswood', 'Lhazar', 'The Dothraki Sea',
-  #                         'The Haunted Forest', 'The Narrow Sea', 'The Land of Always Winter', 
-  #                         'The Red Waste', 'The Smoking Sea', 'Whispering Wood', 'Wolfswood')
-  # show.regions <- regions[regions@data$name %in% show.regions.names, ]
-  # show.regions@data$name <- droplevels(show.regions@data$name)
   
   # Fix errors
   show.locations@data[show.locations@data$name %in% 'Braavos', 'type'] <- 'City'
@@ -73,7 +59,7 @@ GOT_bird_data <- function(map_data, sheet_key){
     gs_read_csv(verbose = FALSE) %>%
     data.table()
   
-  setkey(bird.obs, your_name, species_name, location, season, episode, minute)
+  setkey(bird.obs, your_name, species_name, location, season, episode, time)
 
   # Add bird species to appropriate layer
   all.bird.data <- list(locations = list(), 
@@ -98,7 +84,7 @@ GOT_bird_data <- function(map_data, sheet_key){
     all.bird.data[[list.layer]]@data[is.na(all.bird.data[[list.layer]]@data$species.list),
                                      'species.list'] <- 'No species observations for this location yet!'
   }
-  return(all.bird.data)
+  return(list(joined.data = all.bird.data, google.form.data = bird.obs))
 }
 
 # GOT_map ==============
@@ -119,9 +105,7 @@ GOT_map <- function(map_data, bird_data){
                 label = ~as.character(name)) %>%
     addCircleMarkers(data = bird_data$locations, stroke = FALSE,
                      popup = ~as.character(species.list),
-                     radius = ~ifelse(type == 'City', 7,
-                                      ifelse(type == 'Castle',
-                                             5, 3)),
+                     radius = 5,
                      color = ~ifelse(type == 'City', 'gray22',
                                      ifelse(type == 'Castle', 'gray55', 'gray77')),
                      fillOpacity = 0.75, 
