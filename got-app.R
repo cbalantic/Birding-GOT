@@ -11,6 +11,7 @@ library(data.table)
 library(shiny)
 library(shinyjs)
 library(googlesheets)
+library(DT)
 
 # This app's code is heavily drawn from: 
 #  1. The Rstudio superzip example: 
@@ -25,7 +26,12 @@ library(googlesheets)
 #   (VIEW: everyone; EDIT: Cathleen only)
 GOT_sheet_key <- '1B5_IP0N8AgQ8GscEWm9X7vq_GO7j7N6YQgBJ-D8wPZo'
 
-bird_data <- GOT_bird_data(map_data = map_data, sheet_key = GOT_sheet_key)
+all_bird_data <- GOT_bird_data(map_data = map_data, sheet_key = GOT_sheet_key)
+bird_data <- all_bird_data$joined.data
+obs_table <- all_bird_data$google.form.data
+obs_table[,c('timestamp', 'name') := NULL] 
+colnames(obs_table) <- c('ObserverID', 'Species Common Name', 'Species Latin Name', 
+                         'Location', 'Season', 'Episode', 'Time', 'Comments')
 
 # Locations to display in submission form:
 show.location.names <- sort(
@@ -34,7 +40,7 @@ show.location.names <- sort(
     'Astapor', 'Baelish Keep', 'Braavos', 'Casterly Rock',
     'Castle Black', "Craster's Keep", 'Deepwood Motte', 
     'Dragonstone', 'Eastwatch-by-the-Sea', 
-    'Fist of the First Men',  'Harrenhal', 'Highgarden', 
+    'Fist of the First Men',  'Harrenhal', 'Highgarden', 'Horn Hill',
     'Karhold', "King's Landing", 'Lannisport', 'Last Hearth', 
     'Meereen', 'Moat Cailin', "Mole's Town", 'Nightfort', 
     'Oldtown', 'Pentos','Qarth', 'Queenscrown', 'Riverrun', 
@@ -71,7 +77,7 @@ appCSS <-
 
 
 fieldsAll <- c('your_name', 'species_name', 'species_latin', 
-               'location', 'season', 'episode', 'minute', 'notes')
+               'location', 'season', 'episode', 'time', 'notes')
 responsesDir <- file.path('responses')
 epochTime <- function() {
   as.integer(Sys.time())
@@ -90,10 +96,10 @@ ui <- navbarPage('Birding Game of Thrones (by ear)',
                  tabPanel('Observation Map', 
                           div(class = 'outer', 
                               tags$head(
-                                 # add custom css
-                                 includeCSS('styles.css') #,
-                                 # includeScript('gomap.js')
-                               ),
+                                # add custom css
+                                includeCSS('styles.css') #,
+                                # includeScript('gomap.js')
+                              ),
                               
                               # If not using custom CSS, set height of leafletOutput to # instead of %
                               leafletOutput(outputId = 'map', width = '100%', height = 850),
@@ -112,6 +118,19 @@ ui <- navbarPage('Birding Game of Thrones (by ear)',
                               )
                           )
                  ), # end map tab
+                 
+                 # Observation Table
+                 #   Display the current Google Sheets table of data 
+                 tabPanel('Observation Table',
+                          fluidRow(
+                                   checkboxInput(inputId = 'checkbox', 
+                                                 label = 'Display comments (WARNING: MAY CONTAIN SPOILERS)', 
+                                                 width = '100%',
+                                                 value = FALSE),
+                            hr(),
+                            DT::dataTableOutput('bird_obs_table')
+                          )
+                 ), # end Observations Table
                  
                  tabPanel('Submit Observations',
                           
@@ -146,10 +165,8 @@ ui <- navbarPage('Birding Game of Thrones (by ear)',
                                             label = labelMandatory('Episode'),
                                             choices = 1:10,
                                             selected = 1),
-                                selectInput(inputId = 'minute',
-                                            label = labelMandatory('Minute of Episode'),
-                                            choices = 1:100,
-                                            selected = 1),
+                                textInput(inputId = 'time',
+                                          label = labelMandatory('Time of Episode')),
                                 textInput(inputId = 'notes',label = 'Observation Notes'),
                                 actionButton(inputId = "submit", label = "Submit", class = "btn-primary")
                               ), # end submit obs DIV
@@ -159,7 +176,7 @@ ui <- navbarPage('Birding Game of Thrones (by ear)',
                               shinyjs::hidden(
                                 div(
                                   id = 'thankyou_msg',
-                                  h3('Thanks, your response was submitted successfully!'),
+                                  h3('Response submitted successfully. Thank you for your help! Valar dohaeris.'),
                                   actionLink('submit_another', 'Submit another response')
                                 )
                               ),  
@@ -178,7 +195,7 @@ ui <- navbarPage('Birding Game of Thrones (by ear)',
 
 server <- function(input, output, session) {
   
-  # FORM SUBMISSION
+  # FORM SUBMISSION TAB:
   
   # Check that mandatory fields have been filled
   observe({
@@ -237,9 +254,20 @@ server <- function(input, output, session) {
     shinyjs::hide('thankyou_msg')
   })  
   
-  # MAP RENDERING: 
+  # MAP RENDERING TAB: 
   output$map <- renderLeaflet({
-   GOT_map(map_data, bird_data) 
+    GOT_map(map_data, bird_data) 
+  })
+  
+  
+  # BIRD OBSERVATION TABLE TAB: 
+  output$bird_obs_table <- DT::renderDataTable({
+    
+      if(input$checkbox == FALSE){
+        google_table <- obs_table[, 1:7]
+      } else {
+        google_table <- obs_table
+      }
   })
   
 } # end server
