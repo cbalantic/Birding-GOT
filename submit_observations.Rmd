@@ -9,10 +9,12 @@ output: md_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Tips for submitting observations
+## Tips for submitting observations:
+Only submit an observation for a species and location once per episode! e.g., if you already observed a Praire Warbler in the Dothraki Sea in S2E7, you don't need to submit it again every time it sings.
 
-Explanation about how to submit birding by ear observations for Game of Thones. 
+**Your Name**: No registration or real name is required or enforced. Just input some kind of identifier for yourself.   
+**Species you observed (common name)**: Put down the common name of the species you observed. Since common names can differ geographically, you also have the option to input the **latin name** in the next field. 
 
-If a location is available on the map, but not available in the dropdown menu, that's probably because I'm at least 95% certain that location is never actually visited in the show (it's only in the book) and therefore we shouldn't have any bird observations there. If I've made a mistake here, just select "UNKNOWN" and explain yourself in the "notes". Same with if you're not sure where a bird was observed -- you can just select the "UNKNOWN" option, perhaps describe the scene in the notes (which characters? was it day or night?), and definitely leave the season, episode number, and approximate minute of the episode. 
+**Location**: This can be tricky. If a location is available on the map, but not in the dropdown menu, that's because I'm at least 95% certain that location is only available in the book and never actually visited in the show -- we shouldn't have any bird observations there. If I've made a mistake here, just select "UNKNOWN" and explain yourself in the **Comments** field. Same with if you're not sure where a bird was observed -- select "UNKNOWN" option, describe the scene in the comments (which characters? was it day or night?), and definitely leave the **season**, **episode number**, and approximate **minute** of the episode. I'll sort out a location based on that info. 
 
-Please submit an observation for an episode and location only once per episode! e.g., if you already observed a Northern Cardinal at Sunspear in S5E7, you don't need to submit it again every time you hear the bird singing, or if the episode bounces back and forth between Sunspear and other locations (though it's fine if someone else does).
+
