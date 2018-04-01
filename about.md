@@ -1,12 +1,11 @@
 ### Like identifying birds by ear? Looking for an excuse to rewatch Game of Thrones before the final season comes out in 2019?
 
-Help me ID the birds singing and chirping away in the background of the
+Help ID the birds singing and chirping away in the background of the
 show! I've loved noticing Prairie Warblers in the Red Waste and the
 Dothraki Sea, loons wailing at Riverrun, Northern Cardinals chirping
 cheerily away in Dorne, and much more. However, there are a lot of bird
 sounds on this show, and it turns out I just don't know that many birds.
-I could use your help with identification, and it would be fun to learn
-some new birds.
+I could use your help!
 
 ### About This App:
 
@@ -28,9 +27,9 @@ I wouldn't have been able to build the app without:
     made available by user **cadaei** at the Cartographer's Guild
     website
 
-I wrote this for fun. The information contained herein is completely
-non-scientific; some of my IDs may be wrong. You can contact me via
-[twitter](https://twitter.com/CBalantic),
+Disclaimer: I wrote this purely for fun. The information contained
+herein is completely non-scientific; some of my IDs may be wrong. You
+can contact me via [twitter](https://twitter.com/CBalantic),
 [github](https://github.com/cbalantic/), or
 [email](https://cbalantic.github.io/about/) if you notice a mistake or
 have any suggestions/ideas. The app is hosted for free on

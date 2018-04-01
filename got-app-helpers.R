@@ -90,24 +90,23 @@ GOT_bird_data <- function(map_data, sheet_key){
 # GOT_map ==============
 GOT_map <- function(map_data, bird_data){
   leaflet() %>% 
-    addPolygons(data = map_data$continents, color = 'gray50', stroke = FALSE,
+    addPolygons(data = map_data$continents, color = 'gray40', stroke = FALSE,
                 label = ~as.character(name)) %>%
     addPolygons(data = bird_data$westeros, 
-                color = 'gray50', stroke = FALSE,
+                color = 'gray40', stroke = FALSE,
                 fillOpacity = 0, 
                 popup = ~as.character(species.list), 
                 label = ~as.character(name)) %>%
     addPolygons(data = bird_data$regions, stroke = FALSE, fillOpacity = 0, 
                 popup = ~as.character(species.list), 
                 label = ~as.character(name)) %>%
-    addPolygons(data = bird_data$islands, color = 'gray50', stroke = FALSE,
+    addPolygons(data = bird_data$islands, color = 'gray40', stroke = FALSE,
                 popup = ~as.character(species.list), 
                 label = ~as.character(name)) %>%
     addCircleMarkers(data = bird_data$locations, stroke = FALSE,
                      popup = ~as.character(species.list),
                      radius = 5,
-                     color = ~ifelse(type == 'City', 'gray22',
-                                     ifelse(type == 'Castle', 'gray55', 'gray77')),
+                     color = 'gray22',
                      fillOpacity = 0.75, 
                      label = ~as.character(name)) %>% 
     
@@ -120,4 +119,5 @@ GOT_map <- function(map_data, bird_data){
 w <- './data/shapefiles'
 map_data <- GOT_map_data(filepath = w)
 GOT_sheet_key <- '1B5_IP0N8AgQ8GscEWm9X7vq_GO7j7N6YQgBJ-D8wPZo'
+
 

@@ -13,6 +13,8 @@ library(shinyjs)
 library(googlesheets)
 library(DT)
 
+source('got-app-helpers.R')
+
 # This app's code is heavily drawn from: 
 #  1. The Rstudio superzip example: 
 #     https://github.com/rstudio/shiny-examples/tree/master/063-superzip-example
@@ -38,7 +40,7 @@ show.location.names <- sort(
   c(
     # From 'locations' shapefile:
     'Astapor', 'Baelish Keep', 'Braavos', 'Casterly Rock',
-    'Castle Black', "Craster's Keep", 'Deepwood Motte', 
+    'Castle Black', "Craster's Keep", 'Deepwood Motte',
     'Dragonstone', 'Eastwatch-by-the-Sea', 
     'Fist of the First Men',  'Harrenhal', 'Highgarden', 'Horn Hill',
     'Karhold', "King's Landing", 'Lannisport', 'Last Hearth', 
@@ -56,6 +58,8 @@ show.location.names <- sort(
     
     # From 'islands' shapefile: 
     'Bear Island', 'Isle of Cedars','Dragonstone', 'Naath', 'Pyke', 'Tarth',
+    
+    'Dorne', 
     
     'UNKNOWN')
 )
@@ -97,25 +101,26 @@ ui <- navbarPage('Birding Game of Thrones (by ear)',
                           div(class = 'outer', 
                               tags$head(
                                 # add custom css
-                                includeCSS('styles.css') #,
+                                includeCSS('styles.css'),
+                                tags$style(HTML(".leaflet-container { background: #BCE3EF; }"))
                                 # includeScript('gomap.js')
                               ),
                               
                               # If not using custom CSS, set height of leafletOutput to # instead of %
-                              leafletOutput(outputId = 'map', width = '100%', height = 850),
+                              leafletOutput(outputId = 'map', width = '100%', height = 850) #,
                               
                               # not sure what this next line is doing
                               # oh, this would be a set up for a little data explorer tab if i
                               # chose to have that
-                              absolutePanel(id = 'controls', class = 'panel panel-default',
-                                            fixed = TRUE, draggable = TRUE, top = 60, left = 'auto',
-                                            right = 20, bottom = 'auto',
-                                            width = 330, height = 'auto',
-                                            
-                                            h2('Observations Explorer') #,
-                                            
-                                            # opportunity to explore data wouldgo here?
-                              )
+                              # absolutePanel(id = 'controls', class = 'panel panel-default',
+                              #               fixed = TRUE, draggable = TRUE, top = 60, left = 'auto',
+                              #               right = 20, bottom = 'auto',
+                              #               width = 330, height = 'auto',
+                              #               
+                              #               h2('Observations Explorer') #,
+                              #               
+                              #               # opportunity to explore data wouldgo here?
+                              # )
                           )
                  ), # end map tab
                  
@@ -150,9 +155,9 @@ ui <- navbarPage('Birding Game of Thrones (by ear)',
                                 textInput(inputId = 'your_name', 
                                           label = labelMandatory('Your Name'), ''),
                                 textInput(inputId = 'species_name', 
-                                          label = labelMandatory('Species you observed (common name)')),
+                                          label = labelMandatory('Species You Observed (common name)')),
                                 textInput(inputId = 'species_latin', 
-                                          label = 'Species you observed (latin name, if you know it)'),
+                                          label = 'Species You Observed (Latin name, if you know it)'),
                                 selectInput(inputId = 'location',
                                             label = labelMandatory('Location'),
                                             choices = show.location.names,
@@ -167,7 +172,7 @@ ui <- navbarPage('Birding Game of Thrones (by ear)',
                                             selected = 1),
                                 textInput(inputId = 'time',
                                           label = labelMandatory('Time of Episode')),
-                                textInput(inputId = 'notes',label = 'Observation Notes'),
+                                textInput(inputId = 'notes',label = 'Comments'),
                                 actionButton(inputId = "submit", label = "Submit", class = "btn-primary")
                               ), # end submit obs DIV
                               
