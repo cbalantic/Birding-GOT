@@ -101,8 +101,8 @@ ui <- navbarPage('Birding Game of Thrones (by ear)',
                           div(class = 'outer', 
                               tags$head(
                                 # add custom css
-                                includeCSS('styles.css'),
-                                tags$style(HTML(".leaflet-container { background: #BCE3EF; }"))
+                                includeCSS('styles.css')#,
+                                #  tags$style(HTML(".leaflet-container { background: #BCE3EF; }")) # gives blue map background, but also tinges the whole map blue... 
                                 # includeScript('gomap.js')
                               ),
                               
