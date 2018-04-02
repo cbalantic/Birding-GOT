@@ -3,6 +3,7 @@
 .RData
 .Ruserdata
 Westeros_Essos_shp/
+GOT_sheet_key.R
 .httr-oauth
 data
 rsconnect

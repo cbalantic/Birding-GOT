@@ -2,18 +2,18 @@
 # Cathleen Balantic
 # 03/15/2018
 
-# App combines a map of ASOIAF continents with a Google form interface for submitting birding-by-ear observations from watching Game of Thrones
+# App combines a map of ASOIAF continents with a Google form interface for 
+# submitting birding-by-ear observations from watching Game of Thrones
 
-library(leaflet)
-library(dplyr)
-library(rgdal)
 library(data.table)
+library(dplyr)
+library(DT)
+library(googlesheets)
+library(leaflet)
+library(rgdal)
 library(shiny)
 library(shinyjs)
-library(googlesheets)
-library(DT)
-
-source('got-app-helpers.R')
+library(yaml)
 
 # This app's code is heavily drawn from: 
 #  1. The Rstudio superzip example: 
@@ -22,12 +22,10 @@ source('got-app-helpers.R')
 #  2. Dean Attali's code for mimicking a Google form in R shiny:
 #     https://deanattali.com/2015/06/14/mimicking-google-form-shiny/
 
+source('GOT_sheet_key.R')   # read in Google sheet auth
+source('got-app-helpers.R') # source helper functions and read in raw data
 
 # DATA TO USE IN APP: 
-# Identify the Google sheet we are working with 
-#   (VIEW: everyone; EDIT: Cathleen only)
-GOT_sheet_key <- '1B5_IP0N8AgQ8GscEWm9X7vq_GO7j7N6YQgBJ-D8wPZo'
-
 all_bird_data <- GOT_bird_data(map_data = map_data, sheet_key = GOT_sheet_key)
 bird_data <- all_bird_data$joined.data
 obs_table <- all_bird_data$google.form.data
@@ -40,7 +38,7 @@ show.location.names <- sort(
   c(
     # From 'locations' shapefile:
     'Astapor', 'Baelish Keep', 'Braavos', 'Casterly Rock',
-    'Castle Black', "Craster's Keep", 'Deepwood Motte',
+    'Castle Black', "Craster's Keep", 'Deepwood Motte', 
     'Dragonstone', 'Eastwatch-by-the-Sea', 
     'Fist of the First Men',  'Harrenhal', 'Highgarden', 'Horn Hill',
     'Karhold', "King's Landing", 'Lannisport', 'Last Hearth', 
@@ -59,9 +57,7 @@ show.location.names <- sort(
     # From 'islands' shapefile: 
     'Bear Island', 'Isle of Cedars','Dragonstone', 'Naath', 'Pyke', 'Tarth',
     
-    'Dorne', 
-    
-    'UNKNOWN')
+    'Unknown')
 )
 
 humanTime <- function() format(Sys.time(), '%Y%m%d-%H%M%OS')
@@ -101,8 +97,7 @@ ui <- navbarPage('Birding Game of Thrones (by ear)',
                           div(class = 'outer', 
                               tags$head(
                                 # add custom css
-                                includeCSS('styles.css')#,
-                                #  tags$style(HTML(".leaflet-container { background: #BCE3EF; }")) # gives blue map background, but also tinges the whole map blue... 
+                                includeCSS('styles.css') #,
                                 # includeScript('gomap.js')
                               ),
                               
@@ -155,9 +150,9 @@ ui <- navbarPage('Birding Game of Thrones (by ear)',
                                 textInput(inputId = 'your_name', 
                                           label = labelMandatory('Your Name'), ''),
                                 textInput(inputId = 'species_name', 
-                                          label = labelMandatory('Species You Observed (common name)')),
+                                          label = labelMandatory('Species you observed (common name)')),
                                 textInput(inputId = 'species_latin', 
-                                          label = 'Species You Observed (Latin name, if you know it)'),
+                                          label = 'Species you observed (latin name, if you know it)'),
                                 selectInput(inputId = 'location',
                                             label = labelMandatory('Location'),
                                             choices = show.location.names,
@@ -172,7 +167,7 @@ ui <- navbarPage('Birding Game of Thrones (by ear)',
                                             selected = 1),
                                 textInput(inputId = 'time',
                                           label = labelMandatory('Time of Episode')),
-                                textInput(inputId = 'notes',label = 'Comments'),
+                                textInput(inputId = 'notes',label = 'Observation Notes'),
                                 actionButton(inputId = "submit", label = "Submit", class = "btn-primary")
                               ), # end submit obs DIV
                               

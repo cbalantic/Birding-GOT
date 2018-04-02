@@ -116,7 +116,7 @@ GOT_map <- function(map_data, bird_data){
 }
 
 # Read in data to use in map
-map_data <- GOT_map_data(filepath = './data/shapefiles')
-GOT_sheet_key <- '1B5_IP0N8AgQ8GscEWm9X7vq_GO7j7N6YQgBJ-D8wPZo'
+map_data <- GOT_map_data(filepath = './data')
+
 
 
