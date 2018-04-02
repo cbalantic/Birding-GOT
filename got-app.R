@@ -13,7 +13,6 @@ library(leaflet)
 library(rgdal)
 library(shiny)
 library(shinyjs)
-library(yaml)
 
 # This app's code is heavily drawn from: 
 #  1. The Rstudio superzip example: 
