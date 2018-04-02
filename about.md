@@ -16,9 +16,9 @@ a lot of data yet, so the map is simple. If I manage to get a lot of
 identifications, I'll get fancier with the exploratory capacity offered
 by the map.
 
-I wouldn't have been able to build the app without:
+The following resources were indispensible to creating this app:
 
--   [The Rstudio Superzip
+-   [The RStudio Superzip
     example](https://github.com/rstudio/shiny-examples/tree/master/063-superzip-example)
 -   [Dean Attali's code for mimicking a Google form in R
     shiny](https://deanattali.com/2015/06/14/mimicking-google-form-shiny/)
