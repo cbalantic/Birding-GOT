@@ -1,11 +1,11 @@
 ### Tips for submitting observations:
 
 Only submit an observation for a species and location once per episode!
-If you already observed a Praire Warbler in the Dothraki Sea in S2E7,
+If you already observed a Prairie Warbler in the Dothraki Sea in S2E7,
 you don't need to log it again every time it sings.
 
-**Your Name**: No registration or real name is required or enforced.
-Just input some kind of identifier for yourself.
+**Your Name**: Your real name is not required. Just input some kind of
+identifier for yourself.
 
 **Species you observed (common name)**: Put down the common name of the
 species you observed. Since common names can differ geographically, you
