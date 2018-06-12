@@ -88,10 +88,6 @@ epochTime <- function() {
 ui <- navbarPage('Birding Game of Thrones (by ear)', 
                  id = 'nav', 
                  
-                 tabPanel('About',
-                          includeMarkdown('about.md')
-                 ),
-                 
                  tabPanel('Observation Map', 
                           div(class = 'outer', 
                               tags$head(
@@ -189,7 +185,11 @@ ui <- navbarPage('Birding Game of Thrones (by ear)',
                               )
                             ) # end mainPanel() with submission info
                           ) # end sidebarLayout() 
-                 ) # end "submit observations" tab
+                 ), # end "submit observations" tab
+                 
+                 tabPanel('About',
+                          includeMarkdown('about.md')
+                 )
 ) # end ui
 
 server <- function(input, output, session) {
