@@ -35,3 +35,5 @@ can contact me via [twitter](https://twitter.com/CBalantic),
 have any suggestions/ideas. The app is hosted for free on
 shinyserver.io, so if you lose access, I've run out of free server time
 for the month.
+
+#### [App github repository & source code](https://github.com/cbalantic/Birding-GOT)

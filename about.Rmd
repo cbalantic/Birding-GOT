@@ -27,4 +27,4 @@ The following resources were indispensible to creating this app:
 
 Disclaimer: I wrote this purely for fun. The information contained herein is completely non-scientific; some of my IDs may be wrong. You can contact me via [twitter](https://twitter.com/CBalantic), [github](https://github.com/cbalantic/), or [email](https://cbalantic.github.io/about/) if you notice a mistake or have any suggestions/ideas. The app is hosted for free on shinyserver.io, so if you lose access, I've run out of free server time for the month. 
 
-[View the github repository & source code for this app.](https://github.com/cbalantic/Birding-GOT)
+#### [App github repository & source code](https://github.com/cbalantic/Birding-GOT)
