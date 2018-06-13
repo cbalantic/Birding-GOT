@@ -171,7 +171,7 @@ ui <- navbarPage('Birding Game of Thrones (by ear)',
                               shinyjs::hidden(
                                 div(
                                   id = 'thankyou_msg',
-                                  h3('Response submitted successfully. Thank you for your help! Valar dohaeris.'),
+                                  h3('Response submitted successfully. It may take some time for your observation to appear in the map results.'),
                                   actionLink('submit_another', 'Submit another response')
                                 )
                               ),  

@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ### Tips for submitting observations:
-Only submit an observation for a species and location once per episode! If you already observed a Prairie Warbler in the Dothraki Sea in S2E7, you don't need to log it again every time it sings.
+Only submit an observation for a species and location once per episode. If you already observed a Prairie Warbler in the Dothraki Sea in S2E7, you don't need to log it again every time it sings.
 
 **Your Name**: Your real name is not required. Just input some kind of identifier for yourself.  
 
