@@ -8,3 +8,6 @@ I invite fellow GOT & birding-by-ear enthusiasts to contribute their observation
 The app is hosted for free on shinyapps.io, so if you can't access it, this means I've run out of my free server time for the month. 
 
 
+ETA in 2020: This app is no longer maintained! Some things changed with one of the package dependencies, and after how bad season 8 was I will not bother maintaining this app out of disappointed spite. 
+
+
