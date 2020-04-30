@@ -1,7 +1,7 @@
 # Birding-GOT
 Birding Game of Thrones (by ear)
 
-ETA in 2020: This app is no longer maintained! Some things changed with one of the package dependencies, and after how bad season 8 was I will not bother maintaining this app out of disappointed spite. 
+**ETA in 2020: This app is no longer maintained! Some things changed with one of the package dependencies, and after how bad season 8 was I will not bother maintaining this app out of disappointed spite.**
 
 To teach myself new things, I made a simple app to map out bird vocalizations used in Game of Thrones (the show), available here: https://cbalantic.shinyapps.io/birding-got/
 
